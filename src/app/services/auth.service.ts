@@ -36,4 +36,13 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('accessToken');
   }
+
+  // Método para obtener el token en el formato "Bearer <token>"
+  getAuthHeaders(): HttpHeaders {
+    const token = this.getToken();
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    });
+  }
 }
