@@ -1,0 +1,7 @@
+{
+  "name": "BackendNoFunciona",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
