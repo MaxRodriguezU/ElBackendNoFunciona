@@ -1,6 +1,76 @@
-.error-message {
-    color: #eb445a; /* Color rojo para el mensaje de error */
-    font-size: 0.85em;
-    margin: 4px 0 0 16px;
+/* login.page.scss */
+
+/* Encabezado */
+ion-header {
+  --background: #3b82f6; /* Azul más claro */
+  color: white;
+}
+
+ion-toolbar {
+  ion-title {
+    font-weight: bold;
+    color: white;
   }
-  
+}
+
+ion-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Ocupa toda la altura de la pantalla */
+  background-color: #1f2937; /* Fondo gris oscuro */
+  padding: 20px;
+}
+
+/* Tarjeta de login centrada */
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  background-color: #374151; /* Fondo gris oscuro para la tarjeta */
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra suave */
+  text-align: center;
+}
+
+/* Estilos para los ion-item y campos de entrada */
+ion-item {
+  --background: transparent;
+  --border-color: #3b82f6; /* Color del borde */
+  color: #f9fafb; /* Texto blanco */
+
+  ion-label {
+    color: #d1d5db; /* Gris claro para las etiquetas */
+    font-weight: 500;
+  }
+
+  ion-input {
+    color: #f9fafb; /* Texto blanco */
+  }
+}
+
+/* Botón de iniciar sesión */
+ion-button {
+  margin-top: 20px;
+  --background: #3b82f6; /* Color azul */
+  --color: #ffffff; /* Texto blanco */
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+/* Mensaje de error */
+.error-message {
+  color: #ff4d4d; /* Color rojo para el mensaje de error */
+  font-size: 0.85em;
+  margin-top: 4px;
+  padding-left: 16px;
+}
+
+/* Mensaje de error general */
+ion-text[color="danger"] {
+  text-align: center;
+  color: #ff4d4d;
+  font-size: 1em;
+  font-weight: 500;
+  margin-top: 15px;
+}

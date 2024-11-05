@@ -1,0 +1,75 @@
+/* home.page.scss */
+
+/* Encabezado */
+ion-header {
+    --background: #3b82f6; /* Azul más claro */
+    color: white;
+  }
+  
+  ion-toolbar {
+    ion-title {
+      font-weight: bold;
+      color: white;
+    }
+  }
+  
+  ion-button {
+    --color: white;
+    --background: transparent;
+  }
+  
+  ion-icon {
+    color: white;
+  }
+  
+  /* Fondo del contenido */
+  ion-content {
+    background-color: #1f2937; /* Fondo gris oscuro */
+    padding: 10px;
+  }
+  
+  /* Lista de productos */
+  ion-list {
+    ion-item {
+      background-color: #1f2937; /* Fondo gris oscuro */
+      border-radius: 12px; /* Bordes redondeados */
+      margin-bottom: 12px; /* Espacio entre tarjetas */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Sombra ligera */
+      padding: 10px;
+  
+      /* Imagen del producto */
+      ion-thumbnail {
+        img {
+          border-radius: 8px;
+          width: 60px;
+          height: 60px;
+          object-fit: cover;
+        }
+      }
+  
+      /* Contenido textual */
+      ion-label {
+        color: #f3f4f6; /* Texto en blanco suave */
+        
+        h2 {
+          font-size: 16px;
+          font-weight: bold;
+          color: #f9fafb; /* Texto blanco */
+          margin: 0;
+          padding: 0;
+        }
+  
+        p {
+          font-size: 14px;
+          color: #d1d5db; /* Gris claro para el texto secundario */
+          margin: 2px 0;
+        }
+      }
+    }
+  }
+  
+  /* Infinite scroll */
+  ion-infinite-scroll-content {
+    --loading-spinner-color: #3b82f6; /* Color azul para el spinner */
+  }
+  
