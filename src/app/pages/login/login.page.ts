@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -9,31 +10,41 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginPage implements OnInit {
 
-  username: string = '';
-  password: string = '';
+  loginForm: FormGroup;
   loginError: string | null = null;
+  isLoading: boolean = false;
 
   constructor(
     private authService: AuthService, 
-    private navCtrl: NavController
-  ) { }
-
-  ngOnInit() {
+    private navCtrl: NavController,
+    private formBuilder: FormBuilder
+  ) { 
+    this.loginForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required],
+    });
   }
+
+  ngOnInit() {}
 
   onLogin() {
-    this.authService.login(this.username, this.password).subscribe(
-      (response) => {
-        // Guardar el token en localStorage
-        this.authService.saveToken(response.accessToken);
-        // Navegar a la página principal
-        this.navCtrl.navigateRoot('/home');
-      },
-      (error) => {
-        // Mostrar mensaje de error en caso de fallo
-        this.loginError = 'Usuario o contraseña incorrectos.';
-      }
-    );
-  }
+    if (this.loginForm.valid) {
+      this.isLoading = true;
+      const { username, password } = this.loginForm.value;
 
+      this.authService.login(username, password).subscribe(
+        (response) => {
+          this.authService.saveToken(response.accessToken);
+          this.isLoading = false;
+          this.navCtrl.navigateRoot('/home'); // Redirigir al usuario a la página principal
+        },
+        (error) => {
+          this.isLoading = false;
+          this.loginError = 'Usuario o contraseña incorrectos.';
+        }
+      );
+    } else {
+      this.loginError = 'Por favor, completa todos los campos.';
+    }
+  }
 }

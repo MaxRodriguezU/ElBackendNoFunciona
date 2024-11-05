@@ -5,24 +5,31 @@
 </ion-header>
 
 <ion-content>
-  <form (ngSubmit)="onLogin()">
+  <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
     <ion-item>
       <ion-label position="floating">Usuario</ion-label>
-      <ion-input [(ngModel)]="username" name="username" type="text" required></ion-input>
+      <ion-input formControlName="username" type="text"></ion-input>
     </ion-item>
+    <div *ngIf="loginForm.get('username')?.touched && loginForm.get('username')?.invalid">
+      <p class="error-message">El nombre de usuario es obligatorio.</p>
+    </div>
 
     <ion-item>
       <ion-label position="floating">Contraseña</ion-label>
-      <ion-input [(ngModel)]="password" name="password" type="password" required></ion-input>
+      <ion-input formControlName="password" type="password"></ion-input>
     </ion-item>
+    <div *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid">
+      <p class="error-message">La contraseña es obligatoria.</p>
+    </div>
 
-    <ion-button expand="full" type="submit">Iniciar Sesión</ion-button>
+    <ion-button expand="full" type="submit" [disabled]="loginForm.invalid">Iniciar Sesión</ion-button>
   </form>
 
-  <ion-toast
-    *ngIf="loginError"
-    [message]="loginError"
-    duration="2000"
-    position="bottom"
-  ></ion-toast>
+  <!-- Mensaje de error -->
+  <ion-text color="danger" *ngIf="loginError">
+    <p>{{ loginError }}</p>
+  </ion-text>
+
+  <!-- Mensaje de carga -->
+  <ion-loading *ngIf="isLoading" message="Iniciando sesión..." spinner="crescent"></ion-loading>
 </ion-content>
