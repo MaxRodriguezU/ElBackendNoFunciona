@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { Product } from 'src/app/interfaces/product.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { ProductService } from 'src/app/services/product.service';
 
@@ -10,7 +11,7 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class HomePage implements OnInit {
 
-  products: any[] = [];
+  products: Product[] = [];
   skip: number = 0;
   total: number = 0;
 
@@ -21,6 +22,13 @@ export class HomePage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.loadProducts();
+  }
+
+  ionViewWillEnter() {
+    // Resetear productos y skip al volver a la página
+    this.products = [];
+    this.skip = 0;
     this.loadProducts();
   }
 

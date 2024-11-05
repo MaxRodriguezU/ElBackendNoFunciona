@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Observable } from 'rxjs';
+import { User } from '../interfaces/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +15,11 @@ export class AuthService {
   ) { }
 
   // Método para iniciar sesión
-  login(username: string, password: string): Observable<any> {
+  login(username: string, password: string): Observable<User> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const body = { username, password };
 
-    return this.http.post(this.apiUrl, body, { headers });
+    return this.http.post<User>(this.apiUrl, body, { headers });
   }
 
   // Guardar el token en local storage
