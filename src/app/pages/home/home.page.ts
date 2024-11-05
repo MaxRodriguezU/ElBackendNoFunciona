@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
+import { AuthService } from 'src/app/services/auth.service';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -12,7 +14,11 @@ export class HomePage implements OnInit {
   skip: number = 0;
   total: number = 0;
 
-  constructor(private productService: ProductService) { }
+  constructor(
+    private productService: ProductService,
+    private authService: AuthService,
+    private navCtrl: NavController
+  ) { }
 
   ngOnInit() {
     this.loadProducts();
@@ -45,6 +51,11 @@ export class HomePage implements OnInit {
 
   loadMore(event: any) {
     this.loadProducts(event);
+  }
+
+  logout() {
+    this.authService.logout();
+    this.navCtrl.navigateRoot('/login'); // Redirigir al usuario a la página de login
   }
 
 }
