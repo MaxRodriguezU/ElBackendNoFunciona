@@ -11,8 +11,8 @@ import { AuthService } from 'src/app/services/auth.service';
 export class LoginPage implements OnInit {
 
   loginForm: FormGroup;
-  loginError: string | null = null;
-  isLoading: boolean = false;
+  loginError: string | null = null; // Guarda un mensaje temporal
+  isLoading: boolean = false; 
 
   constructor(
     private authService: AuthService, 
@@ -28,16 +28,23 @@ export class LoginPage implements OnInit {
   ngOnInit() {}
 
   onLogin() {
+    // Verifica si el formulario es válido
     if (this.loginForm.valid) {
+      // Estado del proceso activo
       this.isLoading = true;
+      // Extrae del formulario reactivo estos campos de username y password
       const { username, password } = this.loginForm.value;
 
+      // Usa el servicio de Auth para realizar la autenticacion y navegar al home donde estan los productos
       this.authService.login(username, password).subscribe(
+
+        // Manejo de respuestas en caso de tener exito
         (response) => {
           this.authService.saveToken(response.accessToken);
           this.isLoading = false;
           this.navCtrl.navigateRoot('/home'); // Redirigir al usuario a la página principal
         },
+        // Manejo de respuestas en caso de NO TENER EXITO
         (error) => {
           this.isLoading = false;
           this.loginError = 'Usuario o contraseña incorrectos.';

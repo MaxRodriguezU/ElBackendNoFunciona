@@ -11,29 +11,31 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class HomePage implements OnInit {
 
-  products: Product[] = [];
-  skip: number = 0;
-  total: number = 0;
+  products: Product[] = []; // Almacena la lista de productos obtenidos de la API
+  skip: number = 30; // Controla el numero de productos ya cargados, usado para paginacion
+  total: number = 0; // Almacena el total de productos disponibles en la API
 
   constructor(
-    private productService: ProductService,
-    private authService: AuthService,
-    private navCtrl: NavController
+    private productService: ProductService, // Servicio para obtener los productos de la API
+    private authService: AuthService, // Servicio de Aunteticacion para el LogOut
+    private navCtrl: NavController // Servicio de navegacion para redirigir a otras paginas
   ) { }
 
   ngOnInit() {
-    this.loadProducts();
+    this.loadProducts(); // Carga los primeros productos en la pagina
   }
 
   ionViewWillEnter() {
     // Resetear productos y skip al volver a la página
+    // Esto asegura que se carguen los datos desde 0
     this.products = [];
-    this.skip = 0;
-    this.loadProducts();
+    this.skip = 0; // Resetea el contador de productos cargados
+    this.loadProducts(); // Carga la primera tanda de productos
   }
 
   loadProducts(event?: any) {
     this.productService.getProducts(this.skip).subscribe(
+      // Manejo de respuesta en caso de ser Exitoso
       (response) => {
         this.products = [...this.products, ...response.products];
         this.total = response.total;
@@ -48,6 +50,7 @@ export class HomePage implements OnInit {
           event.target.disabled = true;
         }
       },
+      // Manejo de respuesta en caso de NO SER EXITOSO
       (error) => {
         console.error('Error al cargar productos', error);
         if (event) {
